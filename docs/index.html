@@ -1,0 +1,466 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Angular and the ArcGIS API for JavaScript, DS2019</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/esri-dev-summit-2018.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+
+	<style>
+		.intro-css img {
+			border: none !important;
+			background: none !important;
+			box-shadow: none !important;
+		}
+
+		.blockquote-smaller blockquote {
+			font-size: 0.7em;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-background="img/bg-titleslide2.png" data-background-size="cover" style="padding-left: 100px;">
+				<h1 style="text-align: left; font-size: 80px;">
+					Angular and the ArcGIS API for JavaScript
+				</h1>
+				<p style="text-align: left; display: flex; align-items: center">
+					<span style="text-transform: uppercase;">Andy Gup</span>
+					<a href="https://twitter.com/agup" target="_blank" style="font-size: 30px;">
+						<img src="img/Twitter_Logo_WhiteOnImage.png" width="40" style="border: none; vertical-align: middle; margin-left: 50px; margin-right: 10px;">@agup
+					</a>
+				</p>
+				<p style="text-align: left; display: flex; align-items: center">
+					<span style="text-transform: uppercase;">Kevin Bedel</span>
+				</p>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## What's the plan today?
+			
+					### Assuming some familiarity with Angular 5+:
+
+					- Walk through sample Angular apps
+
+					- Learn how to use ArcGIS API for JavaScript _inside of_ Angular apps
+					
+					- Consume ArcGIS API for JavaScript from CDN
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png" data-state="intro-css">
+				<textarea data-template>
+					## Angular?	Yes, Angular 5+.
+
+					![angular logo](img/angular.png)
+
+					---
+
+					## _Not "AngularJS", "Angular v1", "Angular.js", etc._
+
+					https://github.com/Esri/angular-esri-map
+
+					![angularjs logo](img/AngularJS-large.png)
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png" data-state="into-css">
+				<textarea data-template>
+					## Getting started
+
+					1. Download our repo
+
+						- https://github.com/andygup/angular-plus-arcgis-javascript-presentation
+
+					2. Follow along as we work with Angular sample apps
+
+						- ./sample_apps/1-app-scaffolding
+						
+						- ./sample_apps/2-more-app-scaffolding
+
+						- ./sample_apps/3-esri-loader
+						
+						- ...and more...
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 1-app-scaffolding
+			
+					- Quick start instructions for this demo
+
+						```bash
+						# only once on your computer
+						npm install -g @angular/cli
+						```
+
+						```bash
+						# go to the first sample app
+						cd ./sample_apps/1-app-scaffolding
+
+						# install dependencies
+						npm install
+
+						# serve the app for development
+						ng serve
+
+						# or, if you want to build for production
+						ng build --base-href ./
+						```
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 1-app-scaffolding
+			
+					- Building blocks:
+
+						- Angular CLI
+
+						- "esri-loader"
+
+						- custom demo files:
+						
+							- `esri-map.component.ts`
+
+							- `esri-map.component.html`
+
+							- `esri-map.component.css`
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 2-more-app-scaffolding
+			
+					- Extending the map component
+						- Pass data from parent to child map component with input binding
+						- Listen in parent for child map event
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 3-esri-loader
+
+					&gt; "A tiny library to help load ArcGIS API for JavaScript modules in 3rd party JavaScript frameworks"
+
+					- Brings ArcGIS API for JavaScript modules **WITHIN** Angular
+
+					- [github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
+
+					- How?
+
+						- `loadModules` method that you `import` as needed
+
+							```typescript
+							import { loadModules } from 'esri-loader';
+							```
+
+						- `loadModulues` method dynamically injects a `&lt;script&gt;` tag onto the page
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png" data-state="blockquote-smaller">
+				<textarea data-template>
+					## 3-esri-loader
+
+					```
+						import { loadModules } from 'esri-loader';
+
+						// Use Promise-based pattern
+						loadModules([
+							'esri/Map', 'esri/views/MapView', 'esri/Graphic'
+						]).then(([
+							EsriMap, EsriMapView, Graphic
+						]) =&gt; {
+
+							// Any ArcGIS JavaScript code here
+						});
+
+					```
+
+
+
+					```typescript
+						// Or, use async/await pattern
+						async initializeMap() {
+							const [Map, MapView, Graphic]:any = await loadModules([
+								'esri/Map',
+								'esri/views/MapView',
+								'esri/Graphic
+							])
+							.catch(err => {
+								console.error('ArcGIS: ', err);
+							});
+						}
+					```
+
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png" data-state="blockquote-smaller">
+				<textarea data-template>
+					## 3-esri-loader
+
+					- Why?
+
+						- Provides a reliable way to load ArcGIS modules using our AMD loader
+
+					- You benefit from getting to:
+
+						- use Angular tooling
+
+						- improve initial app load performance
+
+						- control which ArcGIS modules you want, à la carte
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 4-types-for-arcgis-api
+
+					- [TypeScript](https://www.typescriptlang.org/index.html) is used throughout Angular's documentation
+
+					- It is "a typed superset of JavaScript that compiles to plain JavaScript"
+
+					- It allows for compile-time type checking for JavaScript
+
+						```typescript
+						// without types
+						let fullName = 'Bob Bobbington';
+						let age = 37;
+						
+						// with types
+						let fullName: string = 'Bob Bobbington';
+						let age: number = 37;
+						```
+
+					- https://www.typescriptlang.org/docs/handbook/basic-types.html
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 4-types-for-arcgis-api
+			
+					- [Esri provides type definitions](https://github.com/Esri/jsapi-resources/) for the ArcGIS API for JavaScript
+
+					- For Esri v4.x, install them with
+					
+						```bash
+						npm install --save @types/arcgis-js-api
+						```
+
+					- Optionally also add to `tsconfig.app.json`.
+
+						```json
+						"types": ["arcgis-js-api"]
+						```
+
+					- Types are available through global "`__esri`" namespace for Esri v4.x
+
+						- We recommend renaming to "`esri`" with
+
+						```typescript
+						import esri = __esri;
+						```
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 4-types-for-arcgis-api
+					
+					- More info is available at https://github.com/Esri/jsapi-resources/
+
+						```typescript
+						// without
+						const map = new EsriMap({ /* zoom, center, etc. */ });
+
+						// with
+						const mapProperties: esri.MapProperties = {
+							basemap: 'streets'
+						};
+						const map: esri.Map = new EsriMap(mapProperties);
+						```
+
+						```typescript
+						// without
+						const arrayOfGraphics = [];
+						const myGraphic = new Graphic({ /* geometry, symbol, etc. */ });
+						arrayOfGraphics.push(myGraphic)
+
+						// with
+						const arrayOfGraphics: esri.Graphic[] = [];
+						const myGraphic: esri.Graphic = new Graphic({ /* geometry, symbol, etc. */ });
+						arrayOfGraphics.push(myGraphic);
+						```
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 4-types-for-arcgis-api
+					
+					Example of IntelliSense in VS Code
+
+					![autocomplete screenshot](img/autocomplete_screenshot.png)
+						
+					Thanks, type definitions!
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## Asynchronous Operations
+
+					- Three ways to manage out of process, out of sequence operations:
+						- Promises
+						- Custom Events
+						- RxJS Observables
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					![asynchronous patterns](img/async_pattern_options.png)
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					![asynchronous operations](img/async_promises.png)
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					![asynchronous operations](img/async_events.png)
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					![asynchronous operations](img/async_observables.png)
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 8-simple-map-state
+
+					- Need to maintain state as we change routes
+						- Can use a service to maintain the state
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					![app screenshot](img/app_screenshot_2.png)
+				</textarea>
+			</section>
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 9-arcgis-api-service
+			
+					- Refactor sample 2 to move map creation to a service
+					- Create the map service
+					- Inject the service into `app.component`
+					- Replace the old `loadModules()` code with the new map service
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## 10-ionic
+			
+					- [https://github.com/andygup/ionic2-esri-map](https://github.com/andygup/ionic2-esri-map)
+
+					- Using the ArcGIS API for JavaScript with Ionic.
+
+					- Ionic works with 3rd party frameworks including Angular and React
+
+					- Ionic life-cycle: ngOnit() => platform.ready() => async/await loadModules
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/bg-basic.png">
+				<textarea data-template>
+					## Resources
+					
+					- https://js.arcgis.com
+					- https://github.com/esri/esri-loader
+					- https://github.com/andygup/angular-plus-arcgis-javascript-presentation
+					- https://github.com/Esri/angular-cli-esri-map
+					- [GeoNet: ArcGIS API for JavaScript Community](https://community.esri.com/community/developers/web-developers/arcgis-api-for-javascript)
+					- [GIS Stack Exchange](https://gis.stackexchange.com/)
+				</textarea>
+			</section>
+
+			<section data-background="img/bg-basic.png" data-background-size="cover" style="padding-left: 28%;">
+				<h1 style="text-align: left; font-size: 80px;">
+					Thank you
+				</h1>
+				<p style="text-align: left; display: flex; align-items: center;">
+					<span style="text-transform: uppercase;">Andy Gup</span>
+					<a href="https://twitter.com/agup" target="_blank">
+						<img src="img/Twitter_Logo_WhiteOnImage.png" width="50" style="border: none; vertical-align: middle; margin-left: 50px; margin-right: 10px;">@agup
+					</a>
+				</p>
+				<p style="text-align: left; display: flex; align-items: center">
+					<span style="text-transform: uppercase;">Kevin Bedel</span>
+				</p>
+			</section>
+
+			<section data-markdown data-background="img/bg-endslide.png">
+				<!--<textarea data-template>-->
+					<!--<img src="img/esri-science-logo-white.png" style="margin: 0; background: none; border: 0px; box-shadow: none;" />-->
+				<!--</textarea>-->
+			</section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			// This height and width are here for the left-aligned title slide.
+			// If you do not want that, you can remove these two settings and
+			// the presentation will be closer to OOTB-Reveal.js:
+			width: '100%',
+			height: '100%',
+
+			history: true,
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
+</html>
