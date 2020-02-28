@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>Angular and the ArcGIS API for JavaScript, DS2019</title>
+	<title>Angular and the ArcGIS API for JavaScript, DS2020</title>
 
 	<link rel="stylesheet" href="css/reveal.css">
 	<link rel="stylesheet" href="css/theme/esri-dev-summit-2018.css">
@@ -50,7 +50,7 @@
 					</a>
 				</p>
 				<p style="text-align: left; display: flex; align-items: center">
-					<span style="text-transform: uppercase;">Kevin Bedel</span>
+					<span style="text-transform: uppercase;">Allison Davis</span>
 				</p>
 			</section>
 
@@ -90,7 +90,7 @@
 
 					1. Download our repo
 
-						- https://github.com/andygup/angular-plus-arcgis-javascript-presentation
+						- https://github.com/andygup/angular-plus-arcgis-javascript-ds2020
 
 					2. Follow along as we work with Angular sample apps
 
@@ -165,44 +165,43 @@
 				<textarea data-template>
 					## 3-esri-loader
 
-					&gt; "A tiny library to help load ArcGIS API for JavaScript modules in 3rd party JavaScript frameworks"
+					&gt; "A tiny library to help load ArcGIS API for JavaScript modules in third party JS frameworks"
 
-					- Brings ArcGIS API for JavaScript modules **WITHIN** Angular
+					<!-- - Brings ArcGIS API for JavaScript modules **WITHIN** Angular -->
+					- Why?
+					
+						- Reliably load ArcGIS modules using our AMD loader
+						
+						- Benefit from Angular tooling
+						
+						- Improve initial app load performance
+						
+						- Control which ArcGIS modules you want, à la carte
 
-					- [github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
+					[github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
 
-					- How?
-
-						- `loadModules` method that you `import` as needed
-
-							```typescript
-							import { loadModules } from 'esri-loader';
-							```
-
-						- `loadModulues` method dynamically injects a `&lt;script&gt;` tag onto the page
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png" data-state="blockquote-smaller">
+			<section data-markdown data-background="img/bg-basic.png">
 				<textarea data-template>
 					## 3-esri-loader
 
+					```typescript
+					import { loadModules } from 'esri-loader';
+					// `loadModules` dynamically injects a &lt;script&gt; tag onto the page
 					```
-						import { loadModules } from 'esri-loader';
-
-						// Use Promise-based pattern
-						loadModules([
-							'esri/Map', 'esri/views/MapView', 'esri/Graphic'
-						]).then(([
-							EsriMap, EsriMapView, Graphic
-						]) =&gt; {
-
-							// Any ArcGIS JavaScript code here
-						});
-
+					
+					```typescript
+					// Use Promise-based pattern
+					loadModules([
+						'esri/Map', 'esri/views/MapView', 'esri/Graphic'
+					]).then(([
+						EsriMap, EsriMapView, Graphic
+					]) =&gt; {
+						// Any ArcGIS JavaScript code here
+					});
 					```
-
-
 
 					```typescript
 						// Or, use async/await pattern
@@ -221,116 +220,27 @@
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png" data-state="blockquote-smaller">
-				<textarea data-template>
-					## 3-esri-loader
-
-					- Why?
-
-						- Provides a reliable way to load ArcGIS modules using our AMD loader
-
-					- You benefit from getting to:
-
-						- use Angular tooling
-
-						- improve initial app load performance
-
-						- control which ArcGIS modules you want, à la carte
-				</textarea>
-			</section>
-
 			<section data-markdown data-background="img/bg-basic.png">
 				<textarea data-template>
-					## 4-types-for-arcgis-api
-
-					- [TypeScript](https://www.typescriptlang.org/index.html) is used throughout Angular's documentation
-
-					- It is "a typed superset of JavaScript that compiles to plain JavaScript"
-
-					- It allows for compile-time type checking for JavaScript
-
-						```typescript
-						// without types
-						let fullName = 'Bob Bobbington';
-						let age = 37;
-						
-						// with types
-						let fullName: string = 'Bob Bobbington';
-						let age: number = 37;
-						```
-
-					- https://www.typescriptlang.org/docs/handbook/basic-types.html
-				</textarea>
-			</section>
-
-			<section data-markdown data-background="img/bg-basic.png">
-				<textarea data-template>
-					## 4-types-for-arcgis-api
+					## 4-Types for arcgis-js-api
 			
-					- [Esri provides type definitions](https://github.com/Esri/jsapi-resources/) for the ArcGIS API for JavaScript
+					- [TypeScript](https://www.typescriptlang.org/index.html): "a typed superset of JavaScript that compiles to plain JavaScript"
+					<!-- Benefits of TypeScript include cleaner code and IntelliSense in IDEs -->
 
-					- For Esri v4.x, install them with
-					
+					- Angular uses TypeScript as a primary language for app development
+
+					- Esri provides type definitions for the ArcGIS API for JavaScript: 
+
 						```bash
 						npm install --save @types/arcgis-js-api
 						```
 
-					- Optionally also add to `tsconfig.app.json`.
+					- Check out the [esri-types sample in this repo](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/tree/master/sample_apps/4-esri-types) for full example
 
-						```json
-						"types": ["arcgis-js-api"]
-						```
+					Additional TypeScript resources: 
+					- [Angular's TS config guide](https://angular.io/guide/typescript-configuration)
+					- [Esri's TypeScript setup guide](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/)
 
-					- Types are available through global "`__esri`" namespace for Esri v4.x
-
-						- We recommend renaming to "`esri`" with
-
-						```typescript
-						import esri = __esri;
-						```
-				</textarea>
-			</section>
-
-			<section data-markdown data-background="img/bg-basic.png">
-				<textarea data-template>
-					## 4-types-for-arcgis-api
-					
-					- More info is available at https://github.com/Esri/jsapi-resources/
-
-						```typescript
-						// without
-						const map = new EsriMap({ /* zoom, center, etc. */ });
-
-						// with
-						const mapProperties: esri.MapProperties = {
-							basemap: 'streets'
-						};
-						const map: esri.Map = new EsriMap(mapProperties);
-						```
-
-						```typescript
-						// without
-						const arrayOfGraphics = [];
-						const myGraphic = new Graphic({ /* geometry, symbol, etc. */ });
-						arrayOfGraphics.push(myGraphic)
-
-						// with
-						const arrayOfGraphics: esri.Graphic[] = [];
-						const myGraphic: esri.Graphic = new Graphic({ /* geometry, symbol, etc. */ });
-						arrayOfGraphics.push(myGraphic);
-						```
-				</textarea>
-			</section>
-
-			<section data-markdown data-background="img/bg-basic.png">
-				<textarea data-template>
-					## 4-types-for-arcgis-api
-					
-					Example of IntelliSense in VS Code
-
-					![autocomplete screenshot](img/autocomplete_screenshot.png)
-						
-					Thanks, type definitions!
 				</textarea>
 			</section>
 

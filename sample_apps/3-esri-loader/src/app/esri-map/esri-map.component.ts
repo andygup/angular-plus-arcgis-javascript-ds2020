@@ -23,7 +23,7 @@ import { loadModules } from 'esri-loader';
 export class EsriMapComponent implements OnInit {
 
   // this is needed to be able to create the MapView at the DOM element in this component
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+  @ViewChild('mapViewNode', { static: true }) private mapViewEl: ElementRef;
 
   constructor() { }
 
@@ -34,14 +34,14 @@ export class EsriMapComponent implements OnInit {
     ])
       .then(([EsriMap, EsriMapView]) => {
         const map = new EsriMap({
-          basemap: 'streets'
+          basemap: 'streets-navigation-vector'
         });
 
         const mapView = new EsriMapView({
           container: this.mapViewEl.nativeElement,
           center: [0.1278, 51.5074],
           zoom: 10,
-          map: map
+          map
         });
       })
       .catch(err => {
