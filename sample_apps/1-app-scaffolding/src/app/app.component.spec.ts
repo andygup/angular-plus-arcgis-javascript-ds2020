@@ -1,27 +1,40 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-describe('AppComponent', () => {
-  beforeEach(async(() => {
+import { TestBed, async } from "@angular/core/testing";
+import { AppComponent } from "./app.component";
+import { EsriMapComponent } from "./esri-map/esri-map.component";
+
+describe("AppComponent", () => {
+  let fixture;
+  let app;
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent, EsriMapComponent]
     }).compileComponents();
-  }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.debugElement.componentInstance;
+  });
+
+  it("should create the app", async(() => {
     expect(app).toBeTruthy();
   }));
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
+
+  it("should set zoom level", async(() => {
+    expect(app.mapZoomLevel).toEqual(jasmine.any(Number));
   }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+
+  it("should set basemap type", async(() => {
+    expect(app.basemapType).toEqual(jasmine.any(String));
+    expect(app.basemapType).toEqual("satellite");
+  }));
+
+  it("should set map center location", async(() => {
+    expect(app.mapCenter).toEqual(jasmine.any(Array));
+    expect(app.mapCenter.length).toEqual(2);
+  }));
+
+  it("zoom has a default value", async(() => {
+    expect(app.mapZoomLevel).toBeGreaterThanOrEqual(0);
+    expect(app.mapZoomLevel).toBeLessThanOrEqual(24);
   }));
 });

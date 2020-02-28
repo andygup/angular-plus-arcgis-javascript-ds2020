@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EsriMapComponent } from './esri-map.component';
-import { AppComponent } from '../app.component';
 
 describe('EsriMapComponent', () => {
   let component: EsriMapComponent;
@@ -23,8 +22,11 @@ describe('EsriMapComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create MapView', () => {
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('mapViewNode')).toBeDefined();
+  it('verify default values', () => {
+    expect(app.basemap).toEqual(jasmine.any(String));
+    expect(app.center).toEqual(jasmine.any(Array));
+    expect(app.zoom).toEqual(jasmine.any(Number));
+    expect(app.mapLoaded).toEqual(false);
   });
+
 });
