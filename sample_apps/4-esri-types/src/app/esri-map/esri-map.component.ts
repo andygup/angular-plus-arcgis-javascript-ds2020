@@ -24,7 +24,7 @@ import esri = __esri;
 export class EsriMapComponent implements OnInit {
 
   // this is needed to be able to create the MapView at the DOM element in this component
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+  @ViewChild('mapViewNode', { static: true }) private mapViewEl: ElementRef;
 
   constructor() { }
 
@@ -36,7 +36,7 @@ export class EsriMapComponent implements OnInit {
       .then(([EsriMap, EsriMapView]) => {
         // STEP 1: construct a typed Map instance with typed constructor properties
         const mapProperties: esri.MapProperties = {
-          basemap: 'streets'
+          basemap: 'streets-navigation-vector'
         };
 
         const m: esri.Map = new EsriMap(mapProperties);
