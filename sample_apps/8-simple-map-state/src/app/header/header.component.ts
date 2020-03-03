@@ -1,5 +1,5 @@
 /*
-  Copyright 2019 Esri
+  Copyright 2020 Esri
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   header = 'Implementing ArcGIS API for JavaScript and Angular CLI';
-  header_tag = 'Managing Map State with Services: click map to set point graphics persisted in map state';
+  header_tag = 'Managing Map State with Services: click map to set point graphics that will be persisted in map state';
 
   constructor() { }
 
