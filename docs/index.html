@@ -39,52 +39,54 @@
 <body>
 	<div class="reveal">
 		<div class="slides">
-			<section data-background="img/bg-titleslide2.png" data-background-size="cover" style="padding-left: 100px;">
-				<h1 style="text-align: left; font-size: 80px;">
-					Angular and the ArcGIS API for JavaScript
+			<section data-background="img/title_slide.png" data-background-size="cover" style="padding-left: 100px;">
+				<div style="width: 80%;">
+				<h1 style="text-align: left; font-size: 70px;">
+					ArcGIS API for JavaScript: 
+					Building apps for Angular
 				</h1>
-				<p style="text-align: left; display: flex; align-items: center">
+				</div>
+				<p style="text-align: left; display: flex; align-items: center; padding-top: 20px;">
 					<span style="text-transform: uppercase;">Andy Gup</span>
 					<a href="https://twitter.com/agup" target="_blank" style="font-size: 30px;">
 						<img src="img/Twitter_Logo_WhiteOnImage.png" width="40" style="border: none; vertical-align: middle; margin-left: 50px; margin-right: 10px;">@agup
-					</a>
+					</a>					
+					<span style="text-transform: uppercase; padding-left: 50px;">Allison Davis</span>
 				</p>
-				<p style="text-align: left; display: flex; align-items: center">
-					<span style="text-transform: uppercase;">Allison Davis</span>
-				</p>
+
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## What's the plan today?
-			
-					### Assuming some familiarity with Angular 5+:
 
-					- Walk through sample Angular apps
-
-					- Learn how to use ArcGIS API for JavaScript _inside of_ Angular apps
-					
-					- Consume ArcGIS API for JavaScript from CDN
+					- Learn how to use ArcGIS API for JavaScript with Angular CLI
+					- Consume ArcGIS API for JavaScript modules from CDN
+					- Working with async operations
+					- Components
+					- Consume ArcGIS API for JavaScript modules from webpack
+					- Routing
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png" data-state="intro-css">
+			<section data-markdown data-background="img/2020-plain-bg.png" data-state="intro-css">
 				<textarea data-template>
-					## Angular?	Yes, Angular 5+.
+					## Angular 6+
 
 					![angular logo](img/angular.png)
+
+					### https://github.com/Esri/angular-cli-esri-map
 
 					---
 
 					## _Not "AngularJS", "Angular v1", "Angular.js", etc._
 
-					https://github.com/Esri/angular-esri-map
-
-					![angularjs logo](img/AngularJS-large.png)
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png" data-state="into-css">
+			<section data-markdown data-background="img/2020-plain-bg.png" data-state="into-css">
 				<textarea data-template>
 					## Getting started
 
@@ -94,98 +96,50 @@
 
 					2. Follow along as we work with Angular sample apps
 
-						- ./sample_apps/1-app-scaffolding
-						
-						- ./sample_apps/2-more-app-scaffolding
+						- ./sample_apps/1-app-scaffolding				
 
-						- ./sample_apps/3-esri-loader
+						- ./sample_apps/2-esri-loader
 						
 						- ...and more...
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## 1-app-scaffolding
+					## App Scaffolding
 			
-					- Quick start instructions for this demo
-
-						```bash
-						# only once on your computer
-						npm install -g @angular/cli
-						```
-
-						```bash
-						# go to the first sample app
-						cd ./sample_apps/1-app-scaffolding
-
-						# install dependencies
-						npm install
-
-						# serve the app for development
-						ng serve
-
-						# or, if you want to build for production
-						ng build --base-href ./
-						```
-				</textarea>
-			</section>
-
-			<section data-markdown data-background="img/bg-basic.png">
-				<textarea data-template>
-					## 1-app-scaffolding
-			
-					- Building blocks:
+					- Basic building blocks 
 
 						- Angular CLI
 
 						- "esri-loader"
 
-						- custom demo files:
+						- `esri-map.component.ts`
 						
-							- `esri-map.component.ts`
-
-							- `esri-map.component.html`
-
-							- `esri-map.component.css`
+						- Extending the map component
+							
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## 2-more-app-scaffolding
-			
-					- Extending the map component
-						- Pass data from parent to child map component with input binding
-						- Listen in parent for child map event
-				</textarea>
-			</section>
-
-			<section data-markdown data-background="img/bg-basic.png">
-				<textarea data-template>
-					## 3-esri-loader
-
-					&gt; "A tiny library to help load ArcGIS API for JavaScript modules in third party JS frameworks"
-
-					<!-- - Brings ArcGIS API for JavaScript modules **WITHIN** Angular -->
-					- Why?
+					## esri-loader					
+					- 
 					
-						- Reliably load ArcGIS modules using our AMD loader
+						- Reliably load (or lazy load) ArcGIS modules using our AMD loader
 						
-						- Benefit from Angular tooling
-						
-						- Improve initial app load performance
-						
-						- Control which ArcGIS modules you want, à la carte
+						- Control which ArcGIS modules when/where you want, à la carte
 
-					[github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
+						- It's EASY and very lightweight
+
+					### [github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
 
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## 3-esri-loader
+					## esri-loader
 
 					```typescript
 					import { loadModules } from 'esri-loader';
@@ -204,23 +158,23 @@
 					```
 
 					```typescript
-						// Or, use async/await pattern
-						async initializeMap() {
-							const [Map, MapView, Graphic]:any = await loadModules([
-								'esri/Map',
-								'esri/views/MapView',
-								'esri/Graphic
-							])
-							.catch(err => {
-								console.error('ArcGIS: ', err);
-							});
-						}
+					// Or, use async/await pattern
+					async initializeMap() {
+						const [Map, MapView, Graphic]:any = await loadModules([
+							'esri/Map',
+							'esri/views/MapView',
+							'esri/Graphic
+						])
+						.catch(err => {
+							console.error('ArcGIS: ', err);
+						});
+					}
 					```
 
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## 4-Types for arcgis-js-api
 			
@@ -244,7 +198,7 @@
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## Asynchronous Operations
 
@@ -254,27 +208,27 @@
 						- RxJS Observables
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					![asynchronous patterns](img/async_pattern_options.png)
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					![asynchronous operations](img/async_promises.png)
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					![asynchronous operations](img/async_events.png)
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					![asynchronous operations](img/async_observables.png)
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## 8-simple-map-state
 
@@ -282,12 +236,12 @@
 						- Can use a service to maintain the state
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					![app screenshot](img/app_screenshot_2.png)
 				</textarea>
 			</section>
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## 9-arcgis-api-service
 			
@@ -298,21 +252,7 @@
 				</textarea>
 			</section>
 
-			<section data-markdown data-background="img/bg-basic.png">
-				<textarea data-template>
-					## 10-ionic
-			
-					- [https://github.com/andygup/ionic2-esri-map](https://github.com/andygup/ionic2-esri-map)
-
-					- Using the ArcGIS API for JavaScript with Ionic.
-
-					- Ionic works with 3rd party frameworks including Angular and React
-
-					- Ionic life-cycle: ngOnit() => platform.ready() => async/await loadModules
-				</textarea>
-			</section>
-
-			<section data-markdown data-background="img/bg-basic.png">
+			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## Resources
 					
@@ -325,7 +265,7 @@
 				</textarea>
 			</section>
 
-			<section data-background="img/bg-basic.png" data-background-size="cover" style="padding-left: 28%;">
+			<section data-background="img/2020-plain-bg.png" data-background-size="cover" style="padding-left: 28%;">
 				<h1 style="text-align: left; font-size: 80px;">
 					Thank you
 				</h1>
@@ -336,7 +276,7 @@
 					</a>
 				</p>
 				<p style="text-align: left; display: flex; align-items: center">
-					<span style="text-transform: uppercase;">Kevin Bedel</span>
+					<span style="text-transform: uppercase;">Allison Davis</span>
 				</p>
 			</section>
 

@@ -1,5 +1,5 @@
 /*
-  Copyright 2019 Esri
+  Copyright 2020 Esri
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -21,6 +21,7 @@ import {
   EventEmitter,
   OnDestroy
 } from "@angular/core";
+
 import { loadModules } from "esri-loader";
 import esri = __esri; // Esri TypeScript Types
 
@@ -113,7 +114,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Initialize MapView and return an instance of MapView
-    this.initializeMap().then(mapView => {
+    this.initializeMap().then(() => {
       // The map has been initialized
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
