@@ -1,0 +1,25 @@
+<table cdk-table [dataSource]="dataSource">
+  <ng-container cdkColumnDef="name">
+    <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+    <td cdk-cell *cdkCellDef="let pet">{{pet.name}}</td>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <th cdk-header-cell *cdkHeaderCellDef>Type</th>
+    <td cdk-cell *cdkCellDef="let pet">{{pet.type}}</td>
+  </ng-container>
+
+  <ng-container cdkColumnDef="breed">
+    <th cdk-header-cell *cdkHeaderCellDef>Breed</th>
+    <td cdk-cell *cdkCellDef="let pet">{{pet.breed}}</td>
+  </ng-container>
+
+  <ng-container cdkColumnDef="age">
+    <th cdk-header-cell *cdkHeaderCellDef (click)="sortBy($event.target)">Age</th>
+    <td cdk-cell *cdkCellDef="let pet">{{pet.age}}</td>
+  </ng-container>
+
+  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" [class.is-senior]="row.age >=6" (click)="handleClick(row)"></tr>
+
+</table>

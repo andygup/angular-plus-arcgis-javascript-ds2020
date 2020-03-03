@@ -1,0 +1,11 @@
+table {
+  width: 50%;
+}
+
+th {
+  text-align: left;
+}
+
+.is-senior {
+  color: blue
+}
