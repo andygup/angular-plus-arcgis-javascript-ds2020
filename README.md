@@ -2,7 +2,7 @@
 
 2020 Esri DevSummit Presentation.
 
-In the [sample_apps](https://github.com/sean-olson-esri/2018_dev_summit_arcgis_api_angular_cli/tree/master/sample_apps) directory you will find a number of implementations of the ArcGIS API for JavaScript in Angular (2+) applications, using the [`esri-loader`](https://github.com/Esri/esri-loader).
+In the [sample_apps](https://github.com/sean-olson-esri/2018_dev_summit_arcgis_api_angular_cli/tree/master/sample_apps) directory you will find a number of implementations of the ArcGIS API for JavaScript in Angular applications.
 
 Each of the implementations in the `samples_apps` directory is accompanied by a README file that will walk you through the given implementation.
 
