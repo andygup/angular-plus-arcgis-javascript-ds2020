@@ -31,12 +31,12 @@ export class EsriMapService {
 
   wonderCoordinates;
 
-  panToWonder(wonder_coordinates){
-    this.wonderCoordinates = wonder_coordinates;
+  panToWonder(wonderCoordinates) {
+    this.wonderCoordinates = wonderCoordinates;
     this.panRequest.next();
   }
 
-  panToWonderComplete(){
+  panToWonderComplete() {
     this.panComplete.next();
   }
 

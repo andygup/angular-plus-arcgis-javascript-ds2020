@@ -210,11 +210,6 @@
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					![asynchronous patterns](img/async_pattern_options.png)
-				</textarea>
-			</section>
-			<section data-markdown data-background="img/2020-plain-bg.png">
-				<textarea data-template>
 					![asynchronous operations](img/async_promises.png)
 				</textarea>
 			</section>
@@ -225,8 +220,42 @@
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					![asynchronous operations](img/async_observables.png)
+					## RxJS and Observables
+					
+					[RxJS](https://rxjs.dev/guide/overview) (Reactive Extensions for JavaScript) - a library for reactive programming 
+					
+					Angular uses observables via RxJS to handle many common async operations: 
+					- [HTTP](https://angular.io/guide/observables-in-angular#http) 
+					- [Reactive forms](https://angular.io/guide/observables-in-angular#reactive-forms) 
+					- [Router](https://angular.io/guide/observables-in-angular#router)
+					
+					- Under the hood, [Angular custom events extends the RxJS Subject](https://angular.io/guide/observables-in-angular#transmitting-data-between-components)
 				</textarea>
+			</section>
+				<section data-markdown data-background="img/2020-plain-bg.png">
+					<textarea data-template>
+						## Observables Demo
+
+						[View Live Demo]()
+
+						```typescript
+						this.formSubscription = this.wonderForm.valueChanges.subscribe(value => {
+							// do something cool with our updated form value!
+						})
+						```
+
+						```typescript
+						// don't forget to clean up any subscriptions
+						ngOnDestroy() {
+							this.formSubscription.unsubscribe()
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown data-background="img/2020-plain-bg.png">
+					<textarea data-template>
+						## Angular Component Developer Kit (CDK)
+					</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
@@ -241,6 +270,7 @@
 					![app screenshot](img/app_screenshot_2.png)
 				</textarea>
 			</section>
+			
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
 					## 9-arcgis-api-service

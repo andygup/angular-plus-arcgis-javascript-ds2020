@@ -22,7 +22,7 @@ import { EsriMapService } from '../services/esri-map.service';
 })
 export class EsriMapComponent implements OnInit {
 
-  @ViewChild('mapViewNode') private viewNode: ElementRef; // needed to inject the MapView into the DOM
+  @ViewChild('mapViewNode', { static: true }) private viewNode: ElementRef; // needed to inject the MapView into the DOM
   mapView: __esri.MapView;
   panRequestSubscription: any;
 

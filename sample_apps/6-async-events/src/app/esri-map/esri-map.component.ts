@@ -22,8 +22,8 @@ import { loadModules } from 'esri-loader';
 
 export class EsriMapComponent implements OnInit {
 
-  @Output() wonderMapped = new EventEmitter(); // notfies the dashboard component when the mapp is finished
-  @ViewChild('mapViewNode') private viewNode: ElementRef; // needed to inject the MapView into the DOM
+  @Output() wonderMapped = new EventEmitter(); // notfies the dashboard component when the map is finished
+  @ViewChild('mapViewNode', { static: true }) private viewNode: ElementRef; // needed to inject the MapView into the DOM
   mapView: __esri.MapView;
 
   constructor() {
@@ -55,7 +55,7 @@ export class EsriMapComponent implements OnInit {
           container: this.viewNode.nativeElement,
           center: [-12.287, -37.114],
           zoom: 12,
-          map: map
+          map
         });
       })
       .catch(err => {

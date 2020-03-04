@@ -21,7 +21,7 @@ import { EsriMapComponent } from '../esri-map/esri-map.component';
 })
 export class DashboardComponent implements OnInit {
 
-  @ViewChild(EsriMapComponent) map: EsriMapComponent; // needed to reference the child map component
+  @ViewChild(EsriMapComponent, { static: true }) map: EsriMapComponent; // needed to reference the child map component
 
   sevenWonders = [
     {id: 0, name: 'Great Wall of China', coordinates: [117.23, 40.68]},
