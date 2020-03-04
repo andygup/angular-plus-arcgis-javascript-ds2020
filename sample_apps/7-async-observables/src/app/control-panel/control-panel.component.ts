@@ -23,7 +23,6 @@ import { EsriMapService } from '../services/esri-map.service';
 })
 export class ControlPanelComponent implements OnInit, OnDestroy {
   feedback;
-  selectorDisabled = false;
   sevenWonders = this.mapService.sevenWonders;
   panCompleteSubscription: Subscription;
   wonderFormSubscription: Subscription;
@@ -31,12 +30,12 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
   wonderForm = new FormControl('');
 
   disablePanel(name) {
-    this.selectorDisabled = true;
+    this.wonderForm.disable({emitEvent: false});
     this.feedback = 'Panning to ' + name + '.';
   }
 
   enablePanel() {
-    this.selectorDisabled = false;
+    this.wonderForm.enable({ emitEvent: false });
     this.feedback = 'Done!';
     setTimeout(() => { this.feedback = ''; }, 1000);
   }

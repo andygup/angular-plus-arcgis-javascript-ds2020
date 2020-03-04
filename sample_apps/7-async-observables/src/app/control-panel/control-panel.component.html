@@ -1,5 +1,5 @@
 <h5>Select a World Wonder</h5>
-<select [formControl]="wonderForm" name="wonders" id="wonders" [disabled]="selectorDisabled">
+<select [formControl]="wonderForm" name="wonders" id="wonders">
   <option *ngFor="let w of sevenWonders; let i = index;" value={{i}}>{{w.name}}</option>
 </select>
 
