@@ -3,17 +3,20 @@ import { NgModule } from '@angular/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
+import { EsriMapComponent } from './esri-map/esri-map.component';
+import { EsriMapService } from './services/esri-map.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent
+    TableComponent,
+    EsriMapComponent
   ],
   imports: [
     BrowserModule,
     CdkTableModule
   ],
-  providers: [],
+  providers: [EsriMapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

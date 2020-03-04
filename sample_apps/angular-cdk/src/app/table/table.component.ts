@@ -1,21 +1,26 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { EsriMapService } from '../services/esri-map.service';
 
-export interface Pet {
+export interface Wonder {
+  id: number;
   name: string;
-  type: string;
-  breed: string;
-  age: number;
+  coordinates: number[];
 }
 
-const PET_DATA: Pet[] = [
-  { name: 'Ginsburg', type: 'dog', breed: 'lab/chihuahua mix', age: 4 },
-  { name: 'Bunsen', type: 'dog', breed: 'hound mix', age: 3 },
-  { name: 'Harper', type: 'cat', breed: 'domestic medium hair', age: 11},
-  { name: 'Lenny', type: 'cat', breed: 'domestic short hair', age: 9 },
-  { name: 'Beyonce', type: 'chicken', breed: 'Polish crested', age: 4 }
-
+const WONDER_DATA = [
+  { id: 0, name: 'Great Wall of China', coordinates: [117.23, 40.68] },
+  { id: 1, name: 'Petra', coordinates: [35.44194444, 30.32861111] },
+  {
+    id: 2,
+    name: 'Christ the Redeemer',
+    coordinates: [-43.210556, -22.951944]
+  },
+  { id: 3, name: 'Machu Picchu', coordinates: [-72.545556, -13.163333] },
+  { id: 4, name: 'Chichen Itza', coordinates: [-88.568611, 20.683056] },
+  { id: 5, name: 'Colosseum', coordinates: [12.492269, 41.890169] },
+  { id: 6, name: 'Taj Mahal', coordinates: [78.041944, 27.175] }
 ];
 @Component({
   selector: 'app-table',
@@ -25,23 +30,21 @@ const PET_DATA: Pet[] = [
 
 
 export class TableComponent {
-  displayedColumns: string[] = ['name', 'type', 'breed', 'age'];
+  constructor(private mapService: EsriMapService) {}
+  displayedColumns: string[] = ['id', 'name', 'coordinates'];
 
   dataSource = new TestDataSource();
 
   handleClick(row) {
-    console.log(row);
+    this.mapService.panToWonder(row.coordinates);
   }
 
-  sortBy(column) {
-    console.log(column)
-  }
 }
 
-export class TestDataSource extends DataSource<Pet> {
-  data = new BehaviorSubject<Pet[]>(PET_DATA);
+export class TestDataSource extends DataSource<Wonder> {
+  data = new BehaviorSubject<Wonder[]>(WONDER_DATA);
 
-  connect(): Observable<Pet[]> {
+  connect(): Observable<Wonder[]> {
     return this.data;
   }
 
