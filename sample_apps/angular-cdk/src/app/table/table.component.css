@@ -6,6 +6,6 @@ th {
   text-align: left;
 }
 
-.is-senior {
-  color: blue
+.table-row:hover {
+  color: grey;
 }

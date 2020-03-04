@@ -1,25 +1,22 @@
+<h2>Wonders of the World</h2>
+<div>Click a table row to pan the map.</div>
 <table cdk-table [dataSource]="dataSource">
+  <ng-container cdkColumnDef="id">
+    <th cdk-header-cell *cdkHeaderCellDef>ID</th>
+    <td cdk-cell *cdkCellDef="let wonder">{{wonder.id}}</td>
+  </ng-container>
+
   <ng-container cdkColumnDef="name">
     <th cdk-header-cell *cdkHeaderCellDef>Name</th>
-    <td cdk-cell *cdkCellDef="let pet">{{pet.name}}</td>
+    <td cdk-cell *cdkCellDef="let wonder">{{wonder.name}}</td>
   </ng-container>
 
-  <ng-container cdkColumnDef="type">
-    <th cdk-header-cell *cdkHeaderCellDef>Type</th>
-    <td cdk-cell *cdkCellDef="let pet">{{pet.type}}</td>
-  </ng-container>
-
-  <ng-container cdkColumnDef="breed">
-    <th cdk-header-cell *cdkHeaderCellDef>Breed</th>
-    <td cdk-cell *cdkCellDef="let pet">{{pet.breed}}</td>
-  </ng-container>
-
-  <ng-container cdkColumnDef="age">
-    <th cdk-header-cell *cdkHeaderCellDef (click)="sortBy($event.target)">Age</th>
-    <td cdk-cell *cdkCellDef="let pet">{{pet.age}}</td>
+  <ng-container cdkColumnDef="coordinates">
+    <th cdk-header-cell *cdkHeaderCellDef>Coordinates</th>
+    <td cdk-cell *cdkCellDef="let wonder">{{wonder.coordinates[0]}}, {{wonder.coordinates[1]}}</td>
   </ng-container>
 
   <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" [class.is-senior]="row.age >=6" (click)="handleClick(row)"></tr>
+  <tr class="table-row" cdk-row *cdkRowDef="let row; columns: displayedColumns;" (click)="handleClick(row)"></tr>
 
 </table>
