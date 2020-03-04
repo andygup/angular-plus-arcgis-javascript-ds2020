@@ -11,7 +11,9 @@
   limitations under the License.
 */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { EsriMapService } from '../services/esri-map.service';
 
 @Component({
@@ -19,33 +21,21 @@ import { EsriMapService } from '../services/esri-map.service';
   templateUrl: './control-panel.component.html',
   styleUrls: ['./control-panel.component.css']
 })
-export class ControlPanelComponent implements OnInit {
-
+export class ControlPanelComponent implements OnInit, OnDestroy {
   feedback;
   selectorDisabled = false;
   sevenWonders = this.mapService.sevenWonders;
-  panCompleteSubscription: any;
+  panCompleteSubscription: Subscription;
+  wonderFormSubscription: Subscription;
 
-  selectedWonder = (ev) => {
-    // verify that a wonder is selected
-    if (ev.target.value === '') {
-      return;
-    }
+  wonderForm = new FormControl('');
 
-    // disable the panel
-    this.disablePanel(this.sevenWonders[ev.target.value].name);
-
-    // call the panMap method of the child map component
-    this.mapService.panToWonder(this.sevenWonders[ev.target.value].coordinates);
-
-  }
-
-  disablePanel(name){
+  disablePanel(name) {
     this.selectorDisabled = true;
     this.feedback = 'Panning to ' + name + '.';
   }
 
-  enablePanel(){
+  enablePanel() {
     this.selectorDisabled = false;
     this.feedback = 'Done!';
     setTimeout(() => { this.feedback = ''; }, 1000);
@@ -57,6 +47,23 @@ export class ControlPanelComponent implements OnInit {
     this.panCompleteSubscription = this.mapService.panComplete.subscribe(() => {
       this.enablePanel();
     });
+
+    this.wonderFormSubscription = this.wonderForm.valueChanges.subscribe(wonder => {
+      // verify that a wonder is selected
+      if (!wonder) {
+        return;
+      }
+
+      // disable the panel
+      this.disablePanel(this.sevenWonders[wonder].name);
+
+      // call the panMap method of the child map component
+      this.mapService.panToWonder(this.sevenWonders[wonder].coordinates);
+    });
   }
 
+  ngOnDestroy() {
+    this.panCompleteSubscription.unsubscribe();
+    this.wonderFormSubscription.unsubscribe();
+  }
 }
