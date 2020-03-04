@@ -7,7 +7,7 @@ export class EsriMapService {
 
   constructor() { }
 
-  loadMap(basemap: String, center: Array<number>, zoom: Number, mapContainer: ElementRef) {
+  loadMap(basemap: string, center: Array<number>, zoom: number, mapContainer: ElementRef) {
 
     const promise = new Promise((resolve, reject) => {
       loadModules([
@@ -16,15 +16,15 @@ export class EsriMapService {
       ])
         .then(([EsriMap, EsriMapView]) => {
 
-          let map: esri.Map = new EsriMap({
-            basemap: basemap
+          const map: esri.Map = new EsriMap({
+            basemap
           });
 
-          let mapView: esri.MapView = new EsriMapView({
+          const mapView: esri.MapView = new EsriMapView({
             container: mapContainer.nativeElement,
-            center: center,
-            zoom: zoom,
-            map: map
+            center,
+            zoom,
+            map
           });
 
           mapView.when(() => {
