@@ -5,3 +5,9 @@ h1{
 .header-tag {
   font-family: "Lato", sans-serif;
 }
+
+.point-viewport {
+  height: 60px;
+  width: 50%;
+  border: 1px solid lightgray;
+}

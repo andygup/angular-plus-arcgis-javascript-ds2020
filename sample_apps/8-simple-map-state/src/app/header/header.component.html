@@ -2,5 +2,12 @@
   {{header}}
 </h1>
 <div class="header-tag">
-  {{header_tag}}
+  {{header_tag}}  
 </div>
+
+<!-- https://material.angular.io/cdk/scrolling/overview -->
+<cdk-virtual-scroll-viewport [itemSize]="8" class="point-viewport">
+  <div *cdkVirtualFor="let point of pMessage">
+    {{point}}
+  </div>
+</cdk-virtual-scroll-viewport>

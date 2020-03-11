@@ -15,6 +15,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { loadModules } from 'esri-loader';
 
 import { MapStateService } from '../services/map-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-esri-map',
@@ -25,7 +26,7 @@ import { MapStateService } from '../services/map-state.service';
 export class EsriMapComponent implements OnInit {
 
   public mapView: __esri.MapView;
-
+  private sub: Subscription = new Subscription();
 
   // this is needed to be able to create the MapView at the DOM element in this component
   @ViewChild('mapViewNode') private mapViewEl: ElementRef;
@@ -53,11 +54,14 @@ export class EsriMapComponent implements OnInit {
 
         this.mapView.when(
           () => {
-            if (this.msService.points.length) {
-              // add any point graphics stored in the MapStateService
-              // from the user's clicks from previous navigations to this app route
-              this.mapView.graphics.addMany(this.msService.points);
-            }
+            const points = this.msService.getPoints();
+            console.log('first load', points);
+            this.sub = points.subscribe(value => {
+              if(value.length) {
+                this.mapView.graphics.addMany(value);
+                this.sub.unsubscribe(); // we only want this once
+              }
+            })
           },
           (err) => {
             console.error(err);
@@ -66,6 +70,9 @@ export class EsriMapComponent implements OnInit {
 
         this.mapView.on('click', (event: __esri.MapViewClickEvent) => {
           const pointGraphic: __esri.Graphic = new Graphic({
+            attributes: {
+              time: new Date().getTime()
+            },
             geometry: {
               type: 'point',
               longitude: event.mapPoint.longitude,
@@ -82,12 +89,12 @@ export class EsriMapComponent implements OnInit {
             }
           });
 
+          this.mapView.graphics.add(pointGraphic);
           this.msService.addPoint(pointGraphic);
-          this.mapView.graphics.add(this.msService.points[this.msService.points.length - 1]);
         });
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       });
   }
 }

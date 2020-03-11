@@ -10,6 +10,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { MapStateService } from './services/map-state.service';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 const routes = [
   { path: 'map', component: EsriMapComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -26,7 +28,8 @@ const routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ScrollingModule
   ],
   providers: [MapStateService],
   bootstrap: [AppComponent]

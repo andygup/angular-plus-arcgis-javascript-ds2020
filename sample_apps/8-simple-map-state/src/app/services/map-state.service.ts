@@ -11,17 +11,31 @@
   limitations under the License.
 */
 import { Injectable } from '@angular/core';
+import {MapStore} from '../map-store.class';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MapStateService {
-  private _points: __esri.Graphic[] = [];
-  get points() {
-    return this._points;
+export class MapStateService extends MapStore<any[]> {
+
+  getPoints(): Observable<__esri.Graphic[]> {
+    return this.getState();
   }
+
   addPoint(point: __esri.Graphic) {
-    this.points.push(point);
+    const c = this.getValue();
+
+    if(typeof c !== 'undefined'){
+      this.setState([...this.getValue(), point]);  
+    }
+    else {
+      this.setState([point]);  
+    }
+
   }
-  constructor() { }
+  constructor() { 
+    // Important ;-) MapStore needs an initial value of any empty []
+    super([]);
+  }
 }
