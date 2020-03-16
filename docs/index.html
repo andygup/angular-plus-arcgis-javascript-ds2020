@@ -39,6 +39,26 @@
 <body>
 	<div class="reveal">
 		<div class="slides">
+			<!-- Outline 
+			# Intro, Agenda, Getting Started: Andy
+			# esri-loader: Allison
+			# types: Allison
+			# async operations: Allison
+					- promises
+					- custom events
+					- observations and rxjs
+			# Angular CDK: Allison
+			# services, routing, state management: Andy
+			# ngrx (tentative): Andy
+			# Webpack plugin: Andy
+			# Resources and outro: Andy
+			-->
+			<section data-markdown data-background="img/2020-plain-bg.png" data-state="intro-css">
+				<textarea data-template>
+					## Andy Gup (1)
+					</textarea>
+			</section>
+
 			<section data-background="img/title_slide.png" data-background-size="cover" style="padding-left: 100px;">
 				<div style="width: 80%;">
 				<h1 style="text-align: left; font-size: 70px;">
@@ -47,9 +67,9 @@
 				</h1>
 				</div>
 				<p style="text-align: left; display: flex; align-items: center; padding-top: 20px;">
-					<span style="text-transform: uppercase;">Andy Gup</span>
+					<span style="text-transform: uppercase;">Andy Gup&nbsp;</span>
 					<a href="https://twitter.com/agup" target="_blank" style="font-size: 30px;">
-						<img src="img/Twitter_Logo_WhiteOnImage.png" width="40" style="border: none; vertical-align: middle; margin-left: 50px; margin-right: 10px;">@agup
+						@agup
 					</a>
 		
 					<span style="text-transform: uppercase; padding-left: 50px;">Allison Davis&nbsp;</span>
@@ -67,11 +87,14 @@
 					## What's the plan today?
 
 					- Learn how to use ArcGIS API for JavaScript with Angular CLI
-					- Consume ArcGIS API for JavaScript modules from CDN
-					- Working with async operations
-					- Components
-					- Consume ArcGIS API for JavaScript modules from webpack
+					- ArcGIS API for JavaScript modules with esri-loader
+					- Async patterns
+					- Angular Component Dev Kit (CDK)
+					- Services
 					- Routing
+					- State management
+					- ArcGIS API for JavaScript modules with webpack
+
 				</textarea>
 			</section>
 
@@ -100,9 +123,9 @@
 
 					2. Follow along as we work with Angular sample apps
 
-						- ./sample_apps/1-app-scaffolding				
+						- ./sample_apps/app-scaffolding				
 
-						- ./sample_apps/2-esri-loader
+						- ./sample_apps/esri-loader
 						
 						- ...and more...
 				</textarea>
@@ -110,8 +133,8 @@
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## App Scaffolding
-			
+					## [App Scaffolding](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/app-scaffolding)
+					
 					- Basic building blocks 
 
 						- Angular CLI
@@ -125,18 +148,23 @@
 				</textarea>
 			</section>
 
+			<section data-markdown data-background="img/2020-plain-bg.png" data-state="intro-css">
+				<textarea data-template>
+					## Allison Davis (2)
+				</textarea>
+			</section>
+
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## esri-loader					
-					- 
+					## [esri-loader](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/esri-loader)
 					
-						- Reliably load (or lazy load) ArcGIS modules using our AMD loader
-						
-						- Control which ArcGIS modules when/where you want, à la carte
+					- Reliably load (or lazy load) ArcGIS modules using our AMD loader
+					
+					- Control which ArcGIS modules when/where you want, à la carte
 
-						- It's EASY and very lightweight
+					- It's EASY and very lightweight
 
-					### [github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
+					#### [github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
 
 				</textarea>
 			</section>
@@ -180,7 +208,7 @@
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## 4-Types for arcgis-js-api
+					## [Types for arcgis-js-api](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/types-for-arcgis-js-api)
 			
 					- [TypeScript](https://www.typescriptlang.org/index.html): "a typed superset of JavaScript that compiles to plain JavaScript"
 					<!-- Benefits of TypeScript include cleaner code and IntelliSense in IDEs -->
@@ -192,8 +220,6 @@
 						```bash
 						npm install --save @types/arcgis-js-api
 						```
-
-					- Check out the [esri-types sample in this repo](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/tree/master/sample_apps/4-esri-types) for full example
 
 					Additional TypeScript resources: 
 					- [Angular's TS config guide](https://angular.io/guide/typescript-configuration)
@@ -214,11 +240,15 @@
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
+					## [Async: Promises](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-promises)
+
 					![asynchronous operations](img/async_promises.png)
 				</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
+					## [Async: Events](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-events)
+
 					![asynchronous operations](img/async_events.png)
 				</textarea>
 			</section>
@@ -234,13 +264,12 @@
 					- [Router](https://angular.io/guide/observables-in-angular#router)
 					
 					- Under the hood, [Angular custom events extends the RxJS Subject](https://angular.io/guide/observables-in-angular#transmitting-data-between-components)
+
 				</textarea>
 			</section>
 				<section data-markdown data-background="img/2020-plain-bg.png">
 					<textarea data-template>
-						## Observables Demo
-
-						[View Live Demo]()
+						## [Async: Observables](## [Async: Promises](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-observables)
 
 						```typescript
 						this.formSubscription = this.wonderForm.valueChanges.subscribe(value => {
@@ -269,9 +298,7 @@
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## Angular CDK Table demo 
-
-					[View live]()
+					## [Angular CDK demo](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/angular-cdk) 
 
 					- Accessibility and responsiveness work out of the box
 					- Developers have full control - custom styles, sorting, pagination can be added on top
@@ -279,12 +306,19 @@
 
 				</textarea>
 			</section>
+
+			<section data-markdown data-background="img/2020-plain-bg.png" data-state="intro-css">
+				<textarea data-template>
+					# Andy Gup (3)
+				</textarea>
+			</section>
+
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## 8-simple-map-state
+					## [Simple map state](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/simple-map-state)
 
 					- Need to maintain state as we change routes
-						- Can use a service to maintain the state
+					- Can use a service to maintain the state
 				</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
@@ -295,9 +329,9 @@
 			
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## 9-arcgis-api-service
+					## [ArcGIS API service](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/arcgis-api-service)
 			
-					- Refactor sample 2 to move map creation to a service
+					- Refactor [this sample](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/app-scaffolding) to move map creation to a service
 					- Create the map service
 					- Inject the service into `app.component`
 					- Replace the old `loadModules()` code with the new map service
@@ -306,12 +340,29 @@
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
+					## ngrx and state management
+					@TODO ADD
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/2020-plain-bg.png">
+				<textarea data-template>
+					## Webpack plugin & CLI
+					@TODO ADD
+				</textarea>
+			</section>
+
+
+			<section data-markdown data-background="img/2020-plain-bg.png">
+				<textarea data-template>
 					## Resources
 					
-					- https://js.arcgis.com
-					- https://github.com/esri/esri-loader
-					- https://github.com/andygup/angular-plus-arcgis-javascript-presentation
-					- https://github.com/Esri/angular-cli-esri-map
+					- [Presentation GitHub repo](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020)
+					- [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
+					- [Using the ArcGIS API for JavaScript with Angular: Guide](https://developers.arcgis.com/javascript/latest/guide/angular/)
+					- [esri-loader](https://github.com/esri/esri-loader)
+					- [arcgis-webpack-plugin](https://github.com/Esri/arcgis-webpack-plugin)
+					- [Sample ArcGIS JS API/Angular CLI application](https://github.com/Esri/angular-cli-esri-map)
 					- [GeoNet: ArcGIS API for JavaScript Community](https://community.esri.com/community/developers/web-developers/arcgis-api-for-javascript)
 					- [GIS Stack Exchange](https://gis.stackexchange.com/)
 				</textarea>
@@ -322,9 +373,9 @@
 					Thank you
 				</h1>
 				<p style="text-align: left; display: flex; align-items: center;">
-					<span style="text-transform: uppercase;">Andy Gup</span>
+					<span style="text-transform: uppercase;">Andy Gup&nbsp;</span>
 					<a href="https://twitter.com/agup" target="_blank">
-						<img src="img/Twitter_Logo_WhiteOnImage.png" width="50" style="border: none; vertical-align: middle; margin-left: 50px; margin-right: 10px;">@agup
+						@agup
 					</a>
 				</p>
 				<p style="text-align: left; display: flex; align-items: center">
@@ -335,9 +386,6 @@
 				</p>
 			</section>
 
-			<!-- SURVEY SLIDE: -->
-			<section data-markdown data-background="img/2020-feedback.png">
-			</section>
 		</div>
 	</div>
 
