@@ -13,7 +13,7 @@
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { loadModules } from 'esri-loader';
-import { MapSettings } from '../state/models/map-state.model';
+import { MapSettings } from '../state/models/map-settings';
 import { setMapState } from '../state/actions/map.actions';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectMaps } from '../state/index';
@@ -54,9 +54,20 @@ export class EsriMapComponent implements OnInit {
     return loadModules([
       'esri/Map',
       'esri/views/MapView',
-      'esri/Graphic'
+      'esri/core/promiseUtils'
     ])
-      .then(([Map, MapView, Graphic]) => {
+      .then(([Map, MapView, promiseUtils ]) => {
+
+        const debounceMapExtentChanges = promiseUtils.debounce((mv) => {
+          // Update the ngrx store every time the extent changes
+          const m: MapSettings = {
+            zoom: mv.zoom,
+            center: JSON.stringify(mv.center.toJSON())
+          }
+          console.log("Updating extent: ", m);
+          this.store.dispatch(setMapState({ map: m }));
+        })
+
         const map: __esri.Map = new Map({
           basemap: 'hybrid'
         });
@@ -69,20 +80,13 @@ export class EsriMapComponent implements OnInit {
         });
 
         this.mapView.when(() => {
-
           this.mapView.watch('extent', (v) => {
-            // Update the ngrx store every time the extent changes
-            const m: MapSettings = {
-              zoom: this.mapView.zoom,
-              center: JSON.stringify(this.mapView.center.toJSON())
-            }
-            console.log("Updating extent: ", m);
-            this.store.dispatch(setMapState({ map: m }));
+            debounceMapExtentChanges(this.mapView);
           })
         });
       })
-      .catch(err => {
+      .catch(err => { 
         console.error(err);
-      });
+      });      
   }
 }
