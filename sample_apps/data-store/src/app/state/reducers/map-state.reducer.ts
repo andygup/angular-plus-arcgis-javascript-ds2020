@@ -1,7 +1,7 @@
 import { Action, createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
-import { MapSettings } from '../models/map-state.model';
+import { MapSettings } from '../models/map-settings';
 import {setMapState} from '../actions/map.actions';
 export interface State extends EntityState<MapSettings> {}
 
