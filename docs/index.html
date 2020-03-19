@@ -156,7 +156,7 @@
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## [esri-loader](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/esri-loader)
+					## [esri-loader](https://github.com/Esri/esri-loader)
 					
 					- Reliably load (or lazy load) ArcGIS modules using our AMD loader
 					
@@ -164,7 +164,21 @@
 
 					- It's EASY and very lightweight
 
-					#### [github.com/Esri/esri-loader](https://github.com/Esri/esri-loader)
+					#### [Sample application](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/app-scaffolding)
+
+					<aside class="notes" data-markdown>
+						* A little more info on esri-loader
+
+						* small open source library that allows you to lazily load the AMD modules of the ArcGIS for JavaScript API into any JavaScript application - no matter what framework
+
+						* lazy loading by default but if for some reason you don't want to, you can use a static script tag
+
+						* works with JS API 3.x or 4.x
+
+						* esri-loader works with any loader or bundler (webpack, rollup, Parcel)
+
+						* works with Angular CLI right out of the box
+					</aside>
 
 				</textarea>
 			</section>
@@ -203,6 +217,10 @@
 					}
 					```
 
+					<aside class="notes" data-markdown>
+						* Here's an example in code
+					</aside>
+
 				</textarea>
 			</section>
 
@@ -211,7 +229,6 @@
 					## [Types for arcgis-js-api](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/types-for-arcgis-js-api)
 			
 					- [TypeScript](https://www.typescriptlang.org/index.html): "a typed superset of JavaScript that compiles to plain JavaScript"
-					<!-- Benefits of TypeScript include cleaner code and IntelliSense in IDEs -->
 
 					- Angular uses TypeScript as a primary language for app development
 
@@ -224,8 +241,16 @@
 					Additional TypeScript resources: 
 					- [Angular's TS config guide](https://angular.io/guide/typescript-configuration)
 					- [Esri's TypeScript setup guide](https://developers.arcgis.com/javascript/latest/guide/typescript-setup/)
-
 				</textarea>
+
+				<aside class="notes" data-markdown>
+					* Typescript brings a lot of benefits to the table - types means cleaner code 
+					* Plus we get intellisense in our IDEs!
+					* TypeScript is used by Angular as a primary languge for app development 
+					* Esri provides type defs for the JS API 
+
+					* Check out Angular's TS config guide, Esri's Typescript setup guide for more resources, or check out the sample application for an example implementation
+				</aside>
 			</section>
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
@@ -236,6 +261,10 @@
 						- Promises
 						- Custom Events
 						- RxJS Observables
+
+						<aside class="notes" data-markdown>
+							we're going to talk a little bit about each of these patterns
+						</aside>
 				</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
@@ -243,6 +272,20 @@
 					## [Async: Promises](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-promises)
 
 					![asynchronous operations](img/async_promises.png)
+
+					<aside class="notes" data-markdown>
+						* Link to demo in slide title 
+						* Show demo in browser
+
+						* We're using `ViewChild` so that the parent dashboard component can communicate to the child map component
+
+						* The event listener in the parent component's select element runs the selectedWonder function which in turn invokes the panMap function in the child component. panMap returns a promise
+
+						* once the promise is resolved, selectedWonder reenables the dashboard panel 
+
+						* setTimeouts are added to make the sequence more visible when we step through the demo 
+
+					</aside>
 				</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
@@ -250,6 +293,20 @@
 					## [Async: Events](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-events)
 
 					![asynchronous operations](img/async_events.png)
+
+					<aside class="notes" data-markdown>
+						- Show demo in browser
+						- Using custom Angular events
+						- Once again, using ViewChild to reference child component
+
+						but inside map component we're using a custom Angular event
+						Output 
+						this.wonderMapped.emit(
+						)
+
+						In dashboard, point out custom event binding in the template
+						when that event is emitted, dashboard is reenabled
+					</aside>
 				</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
@@ -265,11 +322,20 @@
 					
 					- Under the hood, [Angular custom events extends the RxJS Subject](https://angular.io/guide/observables-in-angular#transmitting-data-between-components)
 
+					<aside class="notes" data-markdown>
+
+						* Observables are used heavily within Angular for common async operations: http, reactive forms, routing
+
+						To learn more about Observables and their use within Angular check out Angular docs
+
+						* RxJS provides an implementation of Observables and utility functions for creating and working with them. RxJS is necessary to use Observables in JavaScript until it becomes part of the language and browsers support it. 
+
+					</aside>
 				</textarea>
 			</section>
 				<section data-markdown data-background="img/2020-plain-bg.png">
 					<textarea data-template>
-						## [Async: Observables](## [Async: Promises](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-observables)
+						## [Async: Observables](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/async-observables)
 
 						```typescript
 						this.formSubscription = this.wonderForm.valueChanges.subscribe(value => {
@@ -283,6 +349,21 @@
 							this.formSubscription.unsubscribe()
 						}
 						```
+
+						<aside class="notes" data-markdown>
+							* Observables provide support for passing messages between publishers and subscribers in an application
+
+							* Observables are declarative - meaning that you define a function to publish values but the function isn't executed
+							until a consumer subscribes to it
+							* When subscribed, the consumer then recieves notifications until the function completes, or if they unsubscribe.
+							* An observable can deliver multiple values of any type
+							* The observable handles set up and teardown so your app code just needs to subscribe to consume values, and when done,
+							unsubscribin Whether the stream is keystrokes, response from an HTTP request, or a timer.
+
+							In code: 
+							
+							* so those are three ways to work with asynchronous operations in your Angular applications. Check out the samples in our github repo, a link to each demo is in the slide titles. 
+						</aside>
 					</textarea>
 				</section>
 				<section data-markdown data-background="img/2020-plain-bg.png">
@@ -294,6 +375,9 @@
 						- Unopinionated about presentation
 						- [Angular Material](https://material.angular.io/) built on top of CDK
 
+						<aside class="notes" data-markdown>
+
+						</aside>
 					</textarea>
 			</section>
 			<section data-markdown data-background="img/2020-plain-bg.png">
