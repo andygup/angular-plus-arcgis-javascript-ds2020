@@ -108,7 +108,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
       await this._view.when();
       return this._view;
     } catch (error) {
-      console.log("EsriLoader: ", error);
+      console.error("EsriLoader: ", error);
     }
   }
 
