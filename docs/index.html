@@ -101,7 +101,7 @@
 			<section data-markdown data-background="img/2020-plain-bg.png" data-state="intro-css">
 				<textarea data-template>
 					## Angular 6+
-
+					## ArcGIS API for JavaScript 4.x
 					![angular logo](img/angular.png)
 
 					### https://github.com/Esri/angular-cli-esri-map
@@ -141,9 +141,7 @@
 
 						- "esri-loader"
 
-						- `esri-map.component.ts`
-						
-						- Extending the map component
+						- `esri-map.component.ts`					
 							
 				</textarea>
 			</section>
@@ -399,43 +397,156 @@
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## [Simple map state](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/simple-map-state)
+					## Angular State Management
 
-					- Need to maintain state as we change routes
-					- Can use a service to maintain the state
+					* Application state
+					* Component state
+					* Shared state
+					* Router state
+
+					## Oh so many choices...!
+
+					* RxJS
+					* RxJS + Redux
+					* NgRx
+					* NGXS
+					* angular-redux
+					* ?
 				</textarea>
 			</section>
+
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
+					## [Simple map state with RxJS](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/simple-map-state)
+
+					- Need to maintain state as we change routes
+					- Can use a service and RxJS to maintain the state
+
 					![app screenshot](img/app_screenshot_2.png)
 				</textarea>
 			</section>
+
+			<section data-markdown data-background="img/2020-plain-bg.png">
+				<textarea data-template>
+								## [NgRx Data Store](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/tree/master/sample_apps/data-store)
 			
+								- Scalable approach to maintaining application state
+
+								![app screenshot](img/app_screenshot_3.png)
+					</textarea>
+			</section>
+
+			<section data-markdown data-background="img/2020-plain-bg.png" data-state="intro-css">
+				<textarea data-template>
+								# Andy Gup (4)
+							</textarea>
+			</section>
+
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## [ArcGIS API service](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/arcgis-api-service)
-			
-					- Refactor [this sample](https://github.com/andygup/angular-plus-arcgis-javascript-ds2020/sample_apps/app-scaffolding) to move map creation to a service
-					- Create the map service
-					- Inject the service into `app.component`
-					- Replace the old `loadModules()` code with the new map service
+						## Angular + @arcgis/webpack-plugin 
+						https://github.com/Esri/angular-cli-esri-map/tree/arcgis-webpack-angular
+
+						* Angular 8 and 9 🙄
+						* ArcGIS API for JavaScript 4.7+ only
+						* Configure webpack using builders
+						* angular-builders/custom-webpack 
+						
+						https://www.npmjs.com/package/@angular-builders/custom-webpack
 				</textarea>
 			</section>
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## ngrx and state management
-					@TODO ADD
+
+						## @arcgis/webpack-plugin
+						## @angular-builders/custom-webpack
+
+						Customize build config without ejecting webpack
+
+						```js
+						// angular.json - custom configuration
+
+						"build": {
+							"builder": "@angular-builders/custom-webpack:browser",
+								"options": {
+									"customWebpackConfig": {
+									"path": "./extra-webpack.config.js"
+						},
+						. . .
+
+						"serve": {
+							"builder": "@angular-builders/custom-webpack:dev-server",
+								"options": {
+									"browserTarget": "angular-cli-esri-map:build"
+								},
+						. . .
+						```
 				</textarea>
 			</section>
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
-					## Webpack plugin & CLI
-					@TODO ADD
+					## extra-webpack.config.js
+
+					```js
+					const ArcGISPlugin = require('@arcgis/webpack-plugin');
+					/**
+					* Configuration items defined here will be appended to the end of the existing webpack config defined by the Angular
+					CLI.
+					*/
+					module.exports = {
+						plugins: [new ArcGISPlugin()],
+						node: {
+							process: false,
+							global: false,
+							fs: "empty"
+						},
+						devtool: 'eval'
+					}
+					```
 				</textarea>
 			</section>
 
+			<section data-markdown data-background="img/2020-plain-bg.png">
+				<textarea data-template>
+					## Initialize the Map
+
+					```js
+					import Map from "esri/Map";
+					import MapView from "esri/views/MapView";
+
+					ngOnInit() {
+
+						this._map = new Map({
+							basemap: this._basemap
+						});
+
+						this._view = new MapView({
+							container: this.mapViewEl.nativeElement,
+							map: this._map
+						});
+					}
+
+					```
+				</textarea>
+			</section>
+
+			<section data-markdown data-background="img/2020-plain-bg.png">
+				<textarea data-template>
+					## Working with secure services
+					
+					```javascript
+
+					DOMException: Failed to execute 'importScripts' on 'WorkerGlobalScope'
+					
+					
+					```
+
+					https://github.com/Esri/arcgis-webpack-plugin#usage
+
+				</textarea>
+			</section>
 
 			<section data-markdown data-background="img/2020-plain-bg.png">
 				<textarea data-template>
